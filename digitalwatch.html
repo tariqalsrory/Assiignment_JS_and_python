@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>الساعة الرقمية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #clock {
+            font-size: 48px;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>الساعة الرقمية</h1>
+    <div id="clock"></div>
+
+    <script>
+        function updateClock() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+
+            var timeString = seconds + ":" + minutes + ":" + hours;
+            document.getElementById("clock").textContent = timeString;
+        }
+
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
