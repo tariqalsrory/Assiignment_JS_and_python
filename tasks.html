@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #taskInput {
+            margin-bottom: 10px;
+        }
+
+        #taskList {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .taskCard {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: left;
+        }
+
+        .taskButtons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .updateButton, .deleteButton {
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .deleteButton {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tasks</h1>
+    <input type="text" id="taskInput" placeholder="أدخل المهمة">
+    <button onclick="addTask()">إضافة</button>
+    <div id="taskList"></div>
+
+    <script>
+        var tasks = [];
+
+        function addTask() {
+            var taskInput = document.getElementById("taskInput");
+            var taskText = taskInput.value;
+
+            if (taskText !== "") {
+                var task = {
+                    text: taskText
+                };
+
+                tasks.push(task);
+                taskInput.value = "";
+
+                renderTasks();
+            }
+        }
+
+        function updateTask(index) {
+            var newTaskText = prompt("قم بتعديل المهمة:", tasks[index].text);
+
+            if (newTaskText !== null) {
+                tasks[index].text = newTaskText;
+
+                renderTasks();
+            }
+        }
+
+        function deleteTask(index) {
+            tasks.splice(index, 1);
+
+            renderTasks();
+        }
+
+        function renderTasks() {
+            var taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+
+            for (var i = 0; i < tasks.length; i++) {
+                var task = tasks[i];
+
+                var taskCard = document.createElement("div");
+                taskCard.className = "taskCard";
+                taskCard.textContent = task.text;
+
+                var taskButtons = document.createElement("div");
+                taskButtons.className = "taskButtons";
+
+                var updateButton = document.createElement("button");
+                updateButton.className = "updateButton";
+                updateButton.textContent = "تعديل";
+                updateButton.onclick = (function(index) {
+                    return function() {
+                        updateTask(index);
+                    };
+                })(i);
+
+                var deleteButton = document.createElement("button");
+                deleteButton.className = "deleteButton";
+                deleteButton.textContent = "حذف";
+                deleteButton.onclick = (function(index) {
+                    return function() {
+                        deleteTask(index);
+                    };
+                })(i);
+
+                taskButtons.appendChild(updateButton);
+                taskButtons.appendChild(deleteButton);
+
+                taskCard.appendChild(taskButtons);
+                taskList.appendChild(taskCard);
+            }
+        }
+    </script>
+</body>
+</html>
