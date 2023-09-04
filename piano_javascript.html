@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>بيانو</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .piano {
+            display: flex;
+            justify-content: space-between;
+            width: 600px;
+        }
+
+        .piano-key {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            width: 70px;
+            height: 300px;
+            background-color: #f9f9f9;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .piano-key.white {
+            border: 1px solid #ccc;
+            color: #333;
+        }
+
+        .piano-key.black {
+            position: relative;
+            width: 40px;
+            height: 200px;
+            background-color: #333;
+            color: #f9f9f9;
+            border-radius: 5px 5px 0 0;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .piano-key.black:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 100px;
+            background-color: #333;
+            border-radius: 5px;
+        }
+
+        .piano-key.black:active {
+            background-color: #666;
+            color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>بيانو</h1>
+    <div class="piano">
+        <div class="piano-key white" onclick="playSound('C')">C</div>
+        <div class="piano-key black" onclick="playSound('C#')">C#</div>
+        <div class="piano-key white" onclick="playSound('D')">D</div>
+        <div class="piano-key black" onclick="playSound('D#')">D#</div>
+        <div class="piano-key white" onclick="playSound('E')">E</div>
+        <div class="piano-key white" onclick="playSound('F')">F</div>
+        <div class="piano-key black" onclick="playSound('F#')">F#</div>
+        <div class="piano-key white" onclick="playSound('G')">G</div>
+        <div class="piano-key black" onclick="playSound('G#')">G#</div>
+        <div class="piano-key white" onclick="playSound('A')">A</div>
+        <div class="piano-key black" onclick="playSound('A#')">A#</div>
+        <div class="piano-key white" onclick="playSound('B')">B</div>
+        <div class="piano-key white" onclick="playSound('C2')">C2</div>
+    </div>
+
+    <script>
+        function playSound(note) {
+            var audio = new Audio('sounds/' + note + '.mp3');
+            audio.play();
+        }
+    </script>
+</body>
+</html>
