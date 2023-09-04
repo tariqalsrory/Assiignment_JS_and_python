@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ساعة التوقف</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #timer {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>ساعة التوقف</h1>
+    <div id="timer">00 : 00 : 000</div>
+    <button onclick="startStopwatch()">بدء</button>
+    <button onclick="stopStopwatch()">إيقاف</button>
+    <button onclick="resetStopwatch()">إعادة</button>
+
+    <script>
+        var stopwatchInterval;
+        var milliseconds = 0;
+        var seconds = 0;
+        var minutes = 0;
+
+        function startStopwatch() {
+            stopwatchInterval = setInterval(updateStopwatch, 10);
+        }
+
+        function stopStopwatch() {
+            clearInterval(stopwatchInterval);
+        }
+
+        function resetStopwatch() {
+            clearInterval(stopwatchInterval);
+            milliseconds = 0;
+            seconds = 0;
+            minutes = 0;
+            document.getElementById("timer").textContent = formatTime(minutes) + " : " + formatTime(seconds) + " : " + formatTime(milliseconds);
+        }
+
+        function updateStopwatch() {
+            milliseconds += 10;
+            if (milliseconds >= 1000) {
+                milliseconds = 0;
+                seconds++;
+            }
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+            }
+            document.getElementById("timer").textContent = formatTime(minutes) + " : " + formatTime(seconds) + " : " + formatTime(milliseconds);
+        }
+
+        function formatTime(time) {
+            return time.toString().padStart(2, '0');
+        }
+    </script>
+</body>
+</html>
